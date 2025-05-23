@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhlqyvgabgn"]
+
+[ext_resource type="Texture2D" uid="uid://bd76nsrb8cgy0" path="res://hearts/Heart_full.png" id="1_etkk2"]
+[ext_resource type="Script" uid="uid://dl6748huep3mr" path="res://scenes/LifeHUD.gd" id="1_le2d7"]
+[ext_resource type="Texture2D" uid="uid://bxperck2qcxvn" path="res://hearts/Heart_empty.png" id="3_dnkil"]
+
+[node name="LifeHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_le2d7")
+tex_full = ExtResource("1_etkk2")
+tex_empty = ExtResource("3_dnkil")
+
+[node name="Heart1" type="TextureRect" parent="."]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(4, 4)
+texture = ExtResource("1_etkk2")
+
+[node name="Heart2" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 110.0
+offset_right = 150.0
+offset_bottom = 40.0
+scale = Vector2(4, 4)
+texture = ExtResource("1_etkk2")
+
+[node name="Heart3" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 214.0
+offset_top = 4.0
+offset_right = 254.0
+offset_bottom = 44.0
+scale = Vector2(4, 4)
+texture = ExtResource("1_etkk2")

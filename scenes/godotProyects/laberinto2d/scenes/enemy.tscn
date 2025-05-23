@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyi8pjgx0kptj"]
+
+[ext_resource type="Script" uid="uid://d2gu2otxg413s" path="res://scenes/enemyActions.gd" id="1_md0e3"]
+[ext_resource type="Texture2D" uid="uid://d34wanyftch1s" path="res://Enemies/Enemy_17.png" id="2_md0e3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
+size = Vector2(15, 31.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ra3w"]
+size = Vector2(67, 130)
+
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_md0e3")
+speed = null
+gravity = null
+question_text = null
+option1_text = null
+option2_text = null
+correct_option = null
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_md0e3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -0.5)
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_md0e3")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.5, -2)
+shape = SubResource("RectangleShape2D_4ra3w")
+
+[node name="WallRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(-37, 0)
+collision_mask = 5
+
+[node name="EdgeRaycast" type="RayCast2D" parent="."]
+position = Vector2(-39, 24)
+collision_mask = 4
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
