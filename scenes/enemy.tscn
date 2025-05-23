@@ -11,9 +11,6 @@ size = Vector2(67, 130)
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_md0e3")
-question_text = "do you know the way"
-option1_text = "yes"
-option2_text = "no"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(4, 4)

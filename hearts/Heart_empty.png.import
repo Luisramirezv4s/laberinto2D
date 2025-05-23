@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxperck2qcxvn"
-path="res://.godot/imported/Heart_empty.png-e9d4175abf23efec6b339ef3975bed8f.ctex"
+path="res://.godot/imported/Heart_empty.png-e9e368c477f076d82ff569aeb6d09812.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://laberinto2D/hearts/Heart_empty.png"
-dest_files=["res://.godot/imported/Heart_empty.png-e9d4175abf23efec6b339ef3975bed8f.ctex"]
+source_file="res://hearts/Heart_empty.png"
+dest_files=["res://.godot/imported/Heart_empty.png-e9e368c477f076d82ff569aeb6d09812.ctex"]
 
 [params]
 

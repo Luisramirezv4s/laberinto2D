@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cipy15ocpujv8" path="res://scenes/player.tscn" id="3_uqdy2"]
 [ext_resource type="PackedScene" uid="uid://dyi8pjgx0kptj" path="res://scenes/enemy.tscn" id="4_2g45v"]
 [ext_resource type="PackedScene" uid="uid://dhlqyvgabgn" path="res://scenes/Life_HUD.tscn" id="5_pnauf"]
-[ext_resource type="Texture2D" uid="uid://dkjnrxyp7kbsq" path="res://ejerciciosMetodos/Screenshot 2025-05-22 at 8.59.14 p.m..png" id="6_hpd5b"]
+[ext_resource type="PackedScene" uid="uid://bn146p2d3lfc8" path="res://scenes/UI/QuestionDialog.tscn" id="7_hpd5b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2g45v"]
 texture = ExtResource("1_2l011")
@@ -386,32 +386,22 @@ zoom = Vector2(1.5, 1)
 [node name="enemy1" parent="." instance=ExtResource("4_2g45v")]
 position = Vector2(1116, 77)
 scale = Vector2(2.8, 2.8)
-dialog_image = ExtResource("6_hpd5b")
-question_text = "Responde correctamente"
-option1_text = "0.1987"
-option2_text = "0.2"
 
 [node name="enemy2" parent="." instance=ExtResource("4_2g45v")]
 position = Vector2(-797, -1474)
 scale = Vector2(2.8, 2.8)
-question_text = ""
-option1_text = ""
-option2_text = ""
 
 [node name="enemy3" parent="." instance=ExtResource("4_2g45v")]
 position = Vector2(-364, 3262)
 scale = Vector2(2.8, 2.8)
-question_text = ""
-option1_text = ""
-option2_text = ""
 
 [node name="enemy4" parent="." instance=ExtResource("4_2g45v")]
 position = Vector2(-2616, 829)
 scale = Vector2(2.8, 2.8)
-question_text = ""
-option1_text = ""
-option2_text = ""
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="LifeHUD" parent="CanvasLayer" instance=ExtResource("5_pnauf")]
+
+[node name="QuestionDialog" parent="CanvasLayer" instance=ExtResource("7_hpd5b")]
+position = Vector2i(526, 274)

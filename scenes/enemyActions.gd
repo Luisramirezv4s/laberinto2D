@@ -2,37 +2,27 @@ extends CharacterBody2D
 
 @export var speed: float = 300.0
 @export var gravity: float = 500.0
-
-# Datos únicos de este enemigo para el diálogo
-@export var dialog_image: Texture
-@export var question_text: String
-@export var option1_text: String
-@export var option2_text: String
-@export var correct_option: int = 1   # 1 ó 2 según cuál sea la respuesta correcta
-
 @onready var wall_raycast: RayCast2D = $WallRaycast
 @onready var edge_raycast: RayCast2D = $EdgeRaycast
 
+
+# 1) El array de preguntas para este enemigo
+const QUIZ_DATA := [
+	{ "image_path":"res://assets/questions/preg1.png", "answer":"42" },
+	{ "image_path":"res://assets/questions/preg2.png", "answer":"X=3" },
+	{ "image_path":"res://assets/questions/preg3.png", "answer":"π/2" },
+	{ "image_path":"res://assets/questions/preg4.png", "answer":"e^2" }
+]
 enum Direction { LEFT = -1, RIGHT = 1 }
 var direction: int = Direction.LEFT
 
-# Preload de tu escena genérica de diálogo
-@onready var _dialog_scene := preload("res://scenes/UI/ProblemDialog.tscn")
-var _dialog    # instancia que crearemos
-var _player_ref      # referencia al jugador que choca
-
+# Guardaremos aquí la referencia al Player para el knockback
+var _pending_player : CharacterBody2D = null  
 
 func _ready() -> void:
 	wall_raycast.enabled = true
 	edge_raycast.enabled = true
-	
-	# 1) Instancio y oculto el diálogo
-	_dialog = _dialog_scene.instantiate()
-	get_tree().get_root().add_child(_dialog)   # lo añado al root, así aparece sobre todo
-	_dialog.hide()
 
-	# 2) Conecto su señal 'answer_selected(correct: bool)'
-	_dialog.connect("answer_selected", self, "_on_Dialog_answer_selected")
 
 func _physics_process(_delta: float) -> void:
 	velocity.y += gravity * _delta
@@ -52,30 +42,38 @@ func _flip_direction() -> void:
 	if has_node("Sprite2D"):
 		$Sprite2D.flip_h = direction < 0
 
-
+# Este método lo vinculas a la señal `body_entered` de tu Area2D
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if not body.has_method("_on_HitEnemy"):
+	if not body.is_in_group("Player"):
 		return
 		
- # Guardamos al jugador para usarlo luego
-	_player_ref = body
+	# 1) Guarda al player 
+	_pending_player = body as CharacterBody2D
 
-	# Mostramos el diálogo con los datos de este enemigo
-	_dialog.show_dialog(
-		dialog_image,
-		question_text,
-		option1_text,
-		option2_text,
-		correct_option
-	)
-		
-func _on_Dialog_answer_selected(correct: bool) -> void:
-	_dialog.hide()
+	# 2) Buscamos el diálogo en la escena actual
+	var dialog = get_tree().get_current_scene().get_node("CanvasLayer/QuestionDialog")
+	
+	# Preparamos la Callable
+	var cb = Callable(self, "_on_quiz_completed")
+	var sig = dialog.quiz_completed
+	
+	# 3) Aseguramos que no haya conexiones previas
+	if sig.is_connected(cb):
+		sig.disconnect(cb)
+	
+	# 4) Conectamos en modo one-shot
+	sig.connect(cb, CONNECT_ONE_SHOT)
 
-	if correct:
-		# Si responde bien, el enemigo muere
+	# 5) Mostramos el quiz
+	dialog.show_quiz(QUIZ_DATA)
+
+func _on_quiz_completed(success: bool) -> void:
+	if success:
+		# Jugador acertó: eliminamos al enemigo
 		queue_free()
 	else:
-		# Si responde mal, knockback + perder vida
-		if _player_ref.has_method("_on_HitEnemy"):
-			_player_ref._on_HitEnemy(position.x)
+		# Jugador falló: aplicamos knockback + Perder vida
+		if _pending_player and _pending_player.has_method("_on_HitEnemy"):
+			_pending_player._on_HitEnemy(position.x)
+	# limpiamos referencia
+	_pending_player = null
