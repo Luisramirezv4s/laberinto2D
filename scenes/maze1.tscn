@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cipy15ocpujv8" path="res://scenes/player.tscn" id="3_uqdy2"]
 [ext_resource type="PackedScene" uid="uid://dyi8pjgx0kptj" path="res://scenes/enemy.tscn" id="4_2g45v"]
 [ext_resource type="PackedScene" uid="uid://dhlqyvgabgn" path="res://scenes/Life_HUD.tscn" id="5_pnauf"]
-[ext_resource type="PackedScene" uid="uid://bn146p2d3lfc8" path="res://scenes/UI/QuestionDialog.tscn" id="7_hpd5b"]
+[ext_resource type="PackedScene" uid="uid://bn146p2d3lfc8" path="res://scenes/UI/InteractionDialog.tscn" id="7_hpd5b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2g45v"]
 texture = ExtResource("1_2l011")
@@ -426,5 +426,4 @@ scale = Vector2(2.8, 2.8)
 
 [node name="LifeHUD" parent="CanvasLayer" instance=ExtResource("5_pnauf")]
 
-[node name="QuestionDialog" parent="CanvasLayer" instance=ExtResource("7_hpd5b")]
-position = Vector2i(526, 274)
+[node name="InteractionDialog" parent="CanvasLayer" instance=ExtResource("7_hpd5b")]
