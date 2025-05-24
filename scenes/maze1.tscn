@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://oopojscal5mu"]
+[gd_scene load_steps=14 format=4 uid="uid://oopojscal5mu"]
 
 [ext_resource type="Texture2D" uid="uid://ctleiygslp6in" path="res://labyrinth-tiles-v2/example-roller.png" id="1_2l011"]
 [ext_resource type="Script" uid="uid://c1p56jqkkav7t" path="res://scenes/LevelScene.gd" id="1_4c7ck"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dyi8pjgx0kptj" path="res://scenes/enemy.tscn" id="4_2g45v"]
 [ext_resource type="PackedScene" uid="uid://dhlqyvgabgn" path="res://scenes/Life_HUD.tscn" id="5_pnauf"]
 [ext_resource type="PackedScene" uid="uid://bn146p2d3lfc8" path="res://scenes/UI/InteractionDialog.tscn" id="7_hpd5b"]
+[ext_resource type="Texture2D" uid="uid://dkjnrxyp7kbsq" path="res://ejerciciosMetodos/Problemas/Screenshot 2025-05-22 at 8.59.14 p.m..png" id="8_bsh2d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2g45v"]
 texture = ExtResource("1_2l011")
@@ -406,8 +407,12 @@ position = Vector2(-493, -225)
 [node name="Camera2D" type="Camera2D" parent="player"]
 zoom = Vector2(1.5, 1)
 
-[node name="enemy1" parent="." instance=ExtResource("4_2g45v")]
-position = Vector2(1116, 77)
+[node name="enemy5" parent="." instance=ExtResource("4_2g45v")]
+position = Vector2(1312, -440)
+scale = Vector2(2.8, 2.8)
+
+[node name="enemy6" parent="." instance=ExtResource("4_2g45v")]
+position = Vector2(1347, 73.9999)
 scale = Vector2(2.8, 2.8)
 
 [node name="enemy2" parent="." instance=ExtResource("4_2g45v")]
@@ -427,3 +432,7 @@ scale = Vector2(2.8, 2.8)
 [node name="LifeHUD" parent="CanvasLayer" instance=ExtResource("5_pnauf")]
 
 [node name="InteractionDialog" parent="CanvasLayer" instance=ExtResource("7_hpd5b")]
+title_text = "Problema"
+function_image = ExtResource("8_bsh2d")
+prompt_text = "Responde Correctamente"
+correct_answer = "2.0"
