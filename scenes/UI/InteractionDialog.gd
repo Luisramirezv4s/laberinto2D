@@ -9,12 +9,12 @@ signal answered_wrong
 # ——————————————
 #   VARIABLES EDITABLES (Inspector)
 # ——————————————
-@export var title_text: String = "Bisectriz"
+@export var title_text: String
 @export var function_image: Texture
-@export var prompt_text: String = "Dada la función presentada encuentra una raíz a un paso"
-@export var option_a_text: String = "2.0"
-@export var option_b_text: String = "2.5"
-@export var correct_answer: String = "2.0"
+@export var prompt_text: String
+@export var option_a_text: String
+@export var option_b_text: String
+@export var correct_answer: String
 
 # ——————————————
 #   REFERENCIAS A NODOS
@@ -26,13 +26,6 @@ signal answered_wrong
 @onready var option_b_btn:    Button      = $DialogPanel/MarginContainer/VBox/Options/OptionB
 
 func _ready() -> void:
-	# Inicializa texto/imágenes
-	title_label.text         = title_text
-	function_texrect.texture = function_image
-	prompt_label.text        = prompt_text
-	option_a_btn.text        = option_a_text
-	option_b_btn.text        = option_b_text
-
 	# Arrancamos ocultos
 	hide()
 
@@ -41,6 +34,14 @@ func _ready() -> void:
 
 # Llamar desde otro script para desplegar
 func show_dialog() -> void:
+	# Inicializa texto/imágenes
+	title_label.text         = title_text
+	function_texrect.texture = function_image
+	prompt_label.text        = prompt_text
+	option_a_btn.text        = option_a_text
+	option_b_btn.text        = option_b_text
+	
+	get_tree().paused = true
 	show()
 	option_a_btn.grab_focus()
 
@@ -57,8 +58,11 @@ func _on_optionB_pressed() -> void:
 #   LÓGICA COMÚN DE RESPUESTA
 # ============================
 func _process_choice(chosen: String) -> void:
+	get_tree().paused = false
 	if chosen == correct_answer:
+		print("InteractionDialog: correct answer")
 		emit_signal("answered_correct")
 	else:
+		print("InteractionDialog: incorrect answer")
 		emit_signal("answered_wrong")
 	hide()

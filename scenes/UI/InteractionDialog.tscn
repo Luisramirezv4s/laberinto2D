@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn146p2d3lfc8"]
+[gd_scene load_steps=2 format=3 uid="uid://bn146p2d3lfc8"]
 
 [ext_resource type="Script" uid="uid://dx6kdv5fpgdx2" path="res://scenes/UI/InteractionDialog.gd" id="1_yi5lp"]
-[ext_resource type="Texture2D" uid="uid://dkjnrxyp7kbsq" path="res://ejerciciosMetodos/Problemas/Screenshot 2025-05-22 at 8.59.14 p.m..png" id="2_6ywte"]
 
 [node name="InteractionDialog" type="Control"]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -17,7 +17,6 @@ offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yi5lp")
-title_text = ""
 
 [node name="DialogPanel" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(600, 420)
@@ -49,7 +48,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-text = "Bisectriz"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -57,16 +55,19 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-texture = ExtResource("2_6ywte")
 stretch_mode = 5
 
 [node name="PromptLabel" type="Label" parent="DialogPanel/MarginContainer/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-text = "Dada la funcion presentada encuentra una raiz a un paso"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="DialogPanel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
 
 [node name="Options" type="HBoxContainer" parent="DialogPanel/MarginContainer/VBox"]
 layout_mode = 2
@@ -77,11 +78,10 @@ size_flags_vertical = 6
 clip_contents = true
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
-text = "2.0"
 
 [node name="OptionB" type="Button" parent="DialogPanel/MarginContainer/VBox/Options"]
 clip_contents = true
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
-text = "2.5
-"
+
+[node name="CountdownTimer" type="Timer" parent="."]

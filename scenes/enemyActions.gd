@@ -15,6 +15,8 @@ var last_player: Node = null
 func _ready() -> void:
 	wall_raycast.enabled = true
 	edge_raycast.enabled = true
+	
+	print("⚙️ Enemy: buscando diálogo… ", dialog)
 
 
 func _physics_process(_delta: float) -> void:
@@ -45,5 +47,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	# Mostramos el diálogo
 	dialog.show_dialog()
 	# Conecta el signal al Callable de GDScript
-	dialog.answered_correct.connect( Callable(self, "_on_dialog_correct"), CONNECT_ONE_SHOT )
-	dialog.answered_wrong.connect(   Callable(self, "_on_dialog_wrong"),   CONNECT_ONE_SHOT )
+	dialog.answered_correct.connect(Callable(self, "_on_dialog_correct") )
+	dialog.answered_wrong.connect(Callable(self, "_on_dialog_wrong") )
+	
+func _on_dialog_correct() -> void:
+	print("✅ Enemy: recibió respuesta correcta, ¡muero!")
+	queue_free()
+
+func _on_dialog_wrong() -> void:
+	print("❌ Enemy: respuesta incorrecta, aplico daño")
+	last_player._on_HitEnemy(position.x)
