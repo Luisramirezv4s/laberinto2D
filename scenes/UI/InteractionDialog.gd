@@ -22,8 +22,13 @@ signal answered_wrong
 @onready var title_label:     Label       = $DialogPanel/MarginContainer/VBox/TitleLabel
 @onready var function_texrect: TextureRect = $DialogPanel/MarginContainer/VBox/FunctionImage
 @onready var prompt_label:    Label       = $DialogPanel/MarginContainer/VBox/PromptLabel
+@onready var timer_label: Label = $DialogPanel/MarginContainer/VBox/TimeLabel
 @onready var option_a_btn:    Button      = $DialogPanel/MarginContainer/VBox/Options/OptionA
 @onready var option_b_btn:    Button      = $DialogPanel/MarginContainer/VBox/Options/OptionB
+@onready var countdown: Timer = $CountdownTimer
+
+const TOTAL_TIME := 600
+var remaining_time: int = TOTAL_TIME
 
 func _ready() -> void:
 	# Arrancamos ocultos
@@ -31,6 +36,8 @@ func _ready() -> void:
 
 	option_a_btn.pressed.connect(Callable(self, "_on_optionA_pressed"))
 	option_b_btn.pressed.connect(Callable(self, "_on_optionB_pressed"))
+	
+	countdown.timeout.connect(Callable(self, "_on_countdown_timeout"))
 
 # Llamar desde otro script para desplegar
 func show_dialog() -> void:
@@ -40,10 +47,32 @@ func show_dialog() -> void:
 	prompt_label.text        = prompt_text
 	option_a_btn.text        = option_a_text
 	option_b_btn.text        = option_b_text
-	
+	#Reset del contador
+	remaining_time = TOTAL_TIME
+	_update_timer_label()
+	countdown.start()
+	#Pausa el juego
 	get_tree().paused = true
 	show()
 	option_a_btn.grab_focus()
+	
+func _on_countdown_timeout() -> void:
+	remaining_time -= 1
+	if remaining_time <= 0:
+		countdown.stop()
+		hide()
+		get_tree().paused = false
+		emit_signal("answered_wrong")   # tiempo agotado cuenta como fallo
+		return
+			
+	_update_timer_label()
+		
+func _update_timer_label() -> void:
+	# Formatea MM:SS
+	var mins_f = remaining_time / 60
+	var mins = int(mins_f)
+	var secs = remaining_time % 60
+	timer_label.text = "%02d:%02d" % [mins, secs]
 
 # ============================
 #   HANDLERS DE CADA BOTÓN
@@ -58,11 +87,13 @@ func _on_optionB_pressed() -> void:
 #   LÓGICA COMÚN DE RESPUESTA
 # ============================
 func _process_choice(chosen: String) -> void:
+	countdown.stop()
+	hide()
 	get_tree().paused = false
+	
 	if chosen == correct_answer:
 		print("InteractionDialog: correct answer")
 		emit_signal("answered_correct")
 	else:
 		print("InteractionDialog: incorrect answer")
 		emit_signal("answered_wrong")
-	hide()
