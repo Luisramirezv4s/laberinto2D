@@ -69,19 +69,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="Options" type="HBoxContainer" parent="DialogPanel/MarginContainer/VBox"]
+[node name="AnswerInput" type="LineEdit" parent="DialogPanel/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="DialogPanel/MarginContainer/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="OptionA" type="Button" parent="DialogPanel/MarginContainer/VBox/Options"]
-clip_contents = true
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-
-[node name="OptionB" type="Button" parent="DialogPanel/MarginContainer/VBox/Options"]
-clip_contents = true
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
+size_flags_vertical = 8
+text = "Enviar"
 
 [node name="CountdownTimer" type="Timer" parent="."]

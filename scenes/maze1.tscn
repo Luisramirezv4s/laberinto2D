@@ -412,6 +412,4 @@ scale = Vector2(2.8, 2.8)
 title_text = "Problema"
 function_image = ExtResource("8_bsh2d")
 prompt_text = "Responde Correctamente"
-option_a_text = "2.0"
-option_b_text = "2.1"
 correct_answer = "2.0"
